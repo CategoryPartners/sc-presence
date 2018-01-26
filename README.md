@@ -29,16 +29,16 @@ GRANT EXECUTE ON `SCPresence`.* TO 'SCP_user'@'localhost';
 
 
 CREATE TABLE IF NOT EXISTS `SCPresence_users` (
-  SCP_id INT(11) NOT NULL AUTO_INCREMENT,
-  SCP_socket_id VARCHAR(255) DEFAULT NULL,
-  SCP_user_id INT(11) DEFAULT NULL,
-  SCP_channel VARCHAR(255) DEFAULT NULL,
-  SCP_updated DATETIME DEFAULT CURRENT_TIMESTAMP,
-  SCP_authToken VARCHAR(2048) DEFAULT NULL,  
-  SCP_ip VARCHAR(255) DEFAULT NULL,
-  SCP_origin VARCHAR(1024) DEFAULT NULL,
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  socket_id VARCHAR(255) DEFAULT NULL,
+  user_id INT(11) DEFAULT NULL,
+  channel VARCHAR(255) DEFAULT NULL,
+  updated DATETIME DEFAULT CURRENT_TIMESTAMP,
+  authToken VARCHAR(2048) DEFAULT NULL,  
+  ip VARCHAR(255) DEFAULT NULL,
+  origin VARCHAR(1024) DEFAULT NULL,
   PRIMARY KEY (SCP_id),
-  UNIQUE INDEX IX_unique_user_channel_socket (SCP_user_id, SCP_channel, SCP_socket_id)
+  UNIQUE INDEX IX_unique_user_channel_socket (user_id, channel, socket_id)
 )
 ENGINE = INNODB;
 ```
@@ -107,7 +107,7 @@ Default Value: **"SCPresence_users"**<br/>
 
 **scpDbuser**<br/>
 The name of the db user that will authenticate to the sc-presence db<br/>
-Default Value: **"SCP_user"**<br/>
+Default Value: **"user"**<br/>
 
 **scpDbpassword**<br/>
 The password for the db user that will authenticate to the sc-presence db<br/>
