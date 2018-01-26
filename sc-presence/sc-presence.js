@@ -20,7 +20,7 @@ module.exports.scPresenceConfig = {
     scpDbhost					: "192.168.0.0",
     scpDbname					: "SCPresence",
     scpDbTablename				: "SCPresence_users",
-    scpDbuser					: "SCP_user",
+    scpDbuser					: "user",
     scpDbpassword				: "besuretosetpasswordinworker",        
     scpConnectUpdateDelay		: 3000,
     scpUserIdField              : "user_id"
@@ -375,8 +375,8 @@ function createUserMap(socketData) {
     while (i < socketData.length) {
        
         var socketRow = socketData[i];       
-        var userId = socketRow.SCP_user_id;
-        var socketId = socketRow.SCP_socket_id;        
+        var userId = socketRow.user_id;
+        var socketId = socketRow.socket_id;
 
         if (userId == null) {
             userId = 'null';
@@ -398,14 +398,14 @@ function createUserMap(socketData) {
         }
         
         //SET THIS SOCKET'S PROPERTIES     
-        userMap[userId][socketId].authToken = socketRow.SCP_authToken;
-        userMap[userId][socketId].ip = socketRow.SCP_ip;
-        userMap[userId][socketId].origin = socketRow.SCP_origin;
-        userMap[userId][socketId].lastUpdate = socketRow.SCP_updated;              
+        userMap[userId][socketId].authToken = socketRow.authToken;
+        userMap[userId][socketId].ip = socketRow.ip;
+        userMap[userId][socketId].origin = socketRow.origin;
+        userMap[userId][socketId].lastUpdate = socketRow.updated;
         
         //GET FIRST CHANNEL SUBSCRIPTION FOR THIS CHANNEL
-        if (socketRow.SCP_channel != config.scpPresenceChannel) {
-            subscribedChannels.push(socketRow.SCP_channel);
+        if (socketRow.channel != config.scpPresenceChannel) {
+            subscribedChannels.push(socketRow.channel);
         }        
         
         //GET ADDITIONAL CHANNEL SUBSCRTIPTIONS FOR THIS SOCKET
@@ -414,9 +414,9 @@ function createUserMap(socketData) {
         while (nextSocketId == socketId) {
             var nextSocketRow = socketData[i + lookAheadCount];
             if (typeof nextSocketRow == "object") {
-                nextSocketId = nextSocketRow.SCP_socket_id;
-                if (nextSocketId == socketId && nextSocketRow.SCP_channel != config.scpPresenceChannel) {
-                    subscribedChannels.push(nextSocketRow.SCP_channel);
+                nextSocketId = nextSocketRow.socket_id;
+                if (nextSocketId == socketId && nextSocketRow.channel != config.scpPresenceChannel) {
+                    subscribedChannels.push(nextSocketRow.channel);
                     lookAheadCount++;
                 }
             } else {

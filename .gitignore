@@ -3,4 +3,5 @@
 broker.js
 server.js
 worker.js
+.idea
 sc-presence/sc-presence-setup-mysql.sql
